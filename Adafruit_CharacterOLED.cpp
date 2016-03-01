@@ -18,15 +18,15 @@
 //    N="0": 1-line display
 //    F="0": 5 x 8 dot character font
 // 3. Power turn off
-//    PWR=î0î
+//    PWR=‚Äù0‚Äù
 // 4. Display on/off control: D="0": Display off C="0": Cursor off B="0": Blinking off
 // 5. Entry mode set
 //    I/D="1": Increment by 1
 //    S="0": No shift
 // 6. Cursor/Display shift/Mode / Pwr
-//    S/C=î0î, R/L=î1î: Shifts cursor position to the right
-//    G/C=î0î: Character mode
-//    Pwr=î1î: Internal DCDC power on
+//    S/C=‚Äù0‚Äù, R/L=‚Äù1‚Äù: Shifts cursor position to the right
+//    G/C=‚Äù0‚Äù: Character mode
+//    Pwr=‚Äù1‚Äù: Internal DCDC power on
 //
 // Note, however, that resetting the Arduino doesn't reset the LCD, so we
 // can't assume that its in that state when a sketch starts (and the
@@ -115,8 +115,10 @@ void Adafruit_CharacterOLED::begin(uint8_t cols, uint8_t lines)
   delayMicroseconds(5000);
   command(0x02);	// Home Cursor
   delayMicroseconds(5000);
-  command(0x0C);	// Turn On - enable cursor & blink
+  command(0x0F);	// Turn On - enable cursor & blink
   delayMicroseconds(5000);
+  _displaycontrol=0b100;// save display setting 
+
 }
 
 /********** high level commands, for the user! */
